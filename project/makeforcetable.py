@@ -27,5 +27,19 @@ for i in range(1000):
     data=str(i+1)+" "+str(r)+" "+str(e)+" "+str(f)+"\n"
     fi.write(data)
 
+
+fi.write('\n\n')
+
+fi.write("\n")
+fi.write("CAPSID_REP\n")
+fi.write("N 1000 R 0.00112 1.12\n\n")
+for i in range(1000):
+    r=(i+1)/1000*1.12
+    e=4*(r**-12-r**-6)
+    f=-48*r**-13+24*r**6
+    data=str(i+1)+" "+str(r)+" "+str(e)+" "+str(f)+"\n"
+    fi.write(data)
+    
+
 fi.close()
     
