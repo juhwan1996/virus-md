@@ -1,0 +1,176 @@
+LAMMPS (9 Oct 2020)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:94)
+  using 1 OpenMP thread(s) per MPI task
+units lj
+atom_style full
+boundary p p p
+pair_style hybrid/overlay lj/cut 1.12 table linear 1000
+#pair_style lj/cut 1.12
+pair_modify mix arithmetic
+bond_style harmonic
+angle_style harmonic
+
+lattice sc 0.05
+Lattice spacing in x,y,z = 2.7144176 2.7144176 2.7144176
+region boxID block 0.1 20.1 0.1 20.1 0.1 20.1 units box
+region box1 block 0.1 10.1 0.1 10.1 0.1 10.1
+create_box 16 boxID
+Created orthogonal box = (0.1 0.1 0.1) to (20.100000 20.100000 20.100000)
+  1 by 1 by 1 MPI processor grid
+molecule       c3mol V1.molc
+Read molecule template c3mol:
+  1 molecules
+  33 atoms with max type 16
+  0 bonds with max type 0
+  0 angles with max type 0
+  0 dihedrals with max type 0
+  0 impropers with max type 0
+create_atoms 16 region box1
+Created 343 atoms
+  create_atoms CPU = 0.001 seconds
+
+dump d0 all image 1000 co2_*.jpg type type
+
+pair_coeff 1 1 lj/cut 1.0 1.0
+pair_coeff 2 2 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 3 3 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 4 4 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 5 5 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 6 6 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 7 7 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 8 8 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 9 9 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 10 10 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 11 11 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 12 12 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 13 13 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 14 14 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 15 15 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff * * lj/cut 1.0 0.0
+
+mass 1 1.0
+mass * 0.001
+
+group           C3 type 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+0 atoms in group C3
+group           C3main type 1
+0 atoms in group C3main
+group           C3other type 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+0 atoms in group C3other
+neighbor        2.0 bin
+neigh_modify    every 1 delay 10 check yes
+velocity       	all create 0.1 54654
+#velocity            C3other create 0 54654
+timestep        0.01
+
+dump m0 all movie 10 movie.avi type type size 640 480
+#fix		fix0 all nve
+fix fix1 all rigid molecule
+  1 rigid bodies with 343 atoms
+run 50000
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 5
+  ghost atom cutoff = 5
+  binsize = 2.5, bins = 8 8 8
+  2 neighbor lists, perpetual/occasional/extra = 2 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) pair table, perpetual, skip from (1)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+Per MPI rank memory allocation (min/avg/max) = 8.431 | 8.431 | 8.431 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0   0.59073908            0            0  0.002583407 0.0043796313 
+   50000   0.59073908            0            0  0.002583407 8.0908841e-11 
+Loop time of 38.9666 on 1 procs for 50000 steps with 343 atoms
+
+Performance: 1108642.589 tau/day, 1283.151 timesteps/s
+57.7% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.23612    | 0.23612    | 0.23612    |   0.0 |  0.61
+Bond    | 0.0039489  | 0.0039489  | 0.0039489  |   0.0 |  0.01
+Neigh   | 0.40979    | 0.40979    | 0.40979    |   0.0 |  1.05
+Comm    | 0.12121    | 0.12121    | 0.12121    |   0.0 |  0.31
+Output  | 37.627     | 37.627     | 37.627     |   0.0 | 96.56
+Modify  | 0.46297    | 0.46297    | 0.46297    |   0.0 |  1.19
+Other   |            | 0.1058     |            |       |  0.27
+
+Nlocal:        343.000 ave         343 max         343 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:        571.000 ave         571 max         571 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:        1118.00 ave        1118 max        1118 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1118
+Ave neighs/atom = 3.2594752
+Ave special neighs/atom = 0.0000000
+Neighbor list builds = 1923
+Dangerous builds = 0
+Total wall time: 0:00:39

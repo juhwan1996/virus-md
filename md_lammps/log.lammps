@@ -1,0 +1,83 @@
+LAMMPS (9 Oct 2020)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:94)
+  using 1 OpenMP thread(s) per MPI task
+units lj
+boundary p p p
+lattice sc 0.5787
+Lattice spacing in x,y,z = 1.2000026 1.2000026 1.2000026
+region boxID block 0.1 5.1 0.1 5.1 0.1 5.1
+create_box 1 boxID
+Created orthogonal box = (0.12000026 0.12000026 0.12000026) to (6.1200131 6.1200131 6.1200131)
+  1 by 1 by 1 MPI processor grid
+create_atoms 1 box
+Created 125 atoms
+  create_atoms CPU = 0.000 seconds
+
+mass 1 1
+pair_style lj/cut 5.0
+pair_coeff 1 1 1 1
+pair_modify tail yes
+timestep 0.001
+
+variable temp index 10
+velocity all create ${temp} 1111111 mom yes rot yes dist gaussian
+velocity all create 10 1111111 mom yes rot yes dist gaussian
+
+fix ensembleFix all nve
+
+dump d0 all image 1000 lj*.jpg type type
+
+compute myRDF all rdf 50
+#compute myForce all property/atom fx
+fix d1 all ave/time 100 1 100 c_myRDF[*] file tmp.rdf mode vector
+#dump d2 all custom 1 dump.myforce.* id type x y z fx fy fz
+
+run 15000
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 5.3
+  ghost atom cutoff = 5.3
+  binsize = 2.65, bins = 3 3 3
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) compute rdf, occasional, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+Per MPI rank memory allocation (min/avg/max) = 3.818 | 3.818 | 3.818 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0           10   -4.2363419            0    10.643658     2.447724 
+   15000     8.341961   -1.7692399            0    10.643598    11.027062 
+Loop time of 5.06435 on 1 procs for 15000 steps with 125 atoms
+
+Performance: 255906.489 tau/day, 2961.881 timesteps/s
+96.3% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 4.0115     | 4.0115     | 4.0115     |   0.0 | 79.21
+Neigh   | 0.55588    | 0.55588    | 0.55588    |   0.0 | 10.98
+Comm    | 0.1258     | 0.1258     | 0.1258     |   0.0 |  2.48
+Output  | 0.233      | 0.233      | 0.233      |   0.0 |  4.60
+Modify  | 0.091826   | 0.091826   | 0.091826   |   0.0 |  1.81
+Other   |            | 0.04631    |            |       |  0.91
+
+Nlocal:        125.000 ave         125 max         125 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:        2559.00 ave        2559 max        2559 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:        22473.0 ave       22473 max       22473 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 22473
+Ave neighs/atom = 179.78400
+Neighbor list builds = 984
+Dangerous builds = 0
+Total wall time: 0:00:05

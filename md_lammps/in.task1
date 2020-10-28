@@ -1,0 +1,26 @@
+units lj
+boundary p p p
+lattice sc 0.5787
+region boxID block 0.1 5.1 0.1 5.1 0.1 5.1
+create_box 1 boxID
+create_atoms 1 box
+
+mass 1 1
+pair_style lj/cut 5.0
+pair_coeff 1 1 1 1
+pair_modify tail yes
+timestep 0.001
+
+variable temp index 10
+velocity all create ${temp} 1111111 mom yes rot yes dist gaussian
+
+fix ensembleFix all nve
+
+dump d0 all image 1000 lj*.jpg type type
+
+compute myRDF all rdf 50
+#compute myForce all property/atom fx
+fix d1 all ave/time 100 1 100 c_myRDF[*] file tmp.rdf mode vector
+#dump d2 all custom 1 dump.myforce.* id type x y z fx fy fz
+
+run 15000
