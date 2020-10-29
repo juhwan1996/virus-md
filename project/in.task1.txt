@@ -8,16 +8,16 @@ angle_style harmonic
 
 lattice sc 0.005
 region boxID block 0.1 20.1 0.1 20.1 0.1 20.1 units box
-region boxID1 block 0.1 10.1 0.1 10.1 0.1 20.1
-region boxID2 block 10.1 20.1 0.1 10.1 0.1 20.1
-region boxID3 block 0.1 10.1 10.1 20.1 0.1 20.1
-region boxID4 block 10.1 20.1 10.1 20.1 0.1 20.1
+region boxID1 block 0.1 10.1 0.1 10.1 0.1 20.1 units box
+region boxID2 block 0.1 10.1 10.1 20.1 0.1 20.1 units box
+region boxID3 block 10.1 20.1 0.1 10.1 0.1 20.1 units box
+region boxID4 block 10.1 20.1 10.1 20.1 0.1 20.1 units box
 create_box 19 boxID
 molecule       v1mol V1.molc
-create_atoms   	0 region boxID1 mol v1mol 464563
 molecule       v2mol V2.molc
-create_atoms   	0 region boxID2 mol v2mol 464563
 molecule       v3mol V3.molc
+create_atoms   	0 region boxID1 mol v1mol 464563
+create_atoms   	0 region boxID2 mol v2mol 464563
 create_atoms   	0 region boxID3 mol v3mol 464563
 create_atoms 19 region boxID4
 
@@ -54,7 +54,7 @@ mass 1 1.0
 mass 19 1.0
 mass * 0.001 
 
-group           capsid type 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+group           capsid type 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
 group           capsid1 type 1
 group           capsid2 type 2
 group           capsid3 type 3
@@ -72,6 +72,6 @@ timestep        0.001
 #dump m0 capsid movie 10 movie.avi type type size 640 480
 #dump m0 capsidmain movie 10 movie.avi type type size 640 480
 dump m0 capsidmainsolvent movie 10 movie.avi type type size 640 480
-#fix		fix0 all nve
-fix fix1 all rigid molecule
+fix fix1 capsid rigid molecule
+fix		fix0 solvent nve
 run 50000

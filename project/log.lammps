@@ -12,10 +12,10 @@ angle_style harmonic
 lattice sc 0.005
 Lattice spacing in x,y,z = 5.8480355 5.8480355 5.8480355
 region boxID block 0.1 20.1 0.1 20.1 0.1 20.1 units box
-region boxID1 block 0.1 10.1 0.1 10.1 0.1 20.1
-region boxID2 block 10.1 20.1 0.1 10.1 0.1 20.1
-region boxID3 block 0.1 10.1 10.1 20.1 0.1 20.1
-region boxID4 block 10.1 20.1 10.1 20.1 0.1 20.1
+region boxID1 block 0.1 10.1 0.1 10.1 0.1 20.1 units box
+region boxID2 block 0.1 10.1 10.1 20.1 0.1 20.1 units box
+region boxID3 block 10.1 20.1 0.1 10.1 0.1 20.1 units box
+region boxID4 block 10.1 20.1 10.1 20.1 0.1 20.1 units box
 create_box 19 boxID
 Created orthogonal box = (0.1 0.1 0.1) to (20.100000 20.100000 20.100000)
   1 by 1 by 1 MPI processor grid
@@ -27,9 +27,6 @@ Read molecule template v1mol:
   0 angles with max type 0
   0 dihedrals with max type 0
   0 impropers with max type 0
-create_atoms   	0 region boxID1 mol v1mol 464563
-Created 891 atoms
-  create_atoms CPU = 0.001 seconds
 molecule       v2mol V2.molc
 Read molecule template v2mol:
   1 molecules
@@ -38,9 +35,6 @@ Read molecule template v2mol:
   0 angles with max type 0
   0 dihedrals with max type 0
   0 impropers with max type 0
-create_atoms   	0 region boxID2 mol v2mol 464563
-Created 0 atoms
-  create_atoms CPU = 0.000 seconds
 molecule       v3mol V3.molc
 Read molecule template v3mol:
   1 molecules
@@ -49,12 +43,18 @@ Read molecule template v3mol:
   0 angles with max type 0
   0 dihedrals with max type 0
   0 impropers with max type 0
-create_atoms   	0 region boxID3 mol v3mol 464563
-Created 0 atoms
+create_atoms   	0 region boxID1 mol v1mol 464563
+Created 99 atoms
   create_atoms CPU = 0.001 seconds
-create_atoms 19 region boxID4
-Created 0 atoms
+create_atoms   	0 region boxID2 mol v2mol 464563
+Created 198 atoms
   create_atoms CPU = 0.000 seconds
+create_atoms   	0 region boxID3 mol v3mol 464563
+Created 198 atoms
+  create_atoms CPU = 0.000 seconds
+create_atoms 19 region boxID4
+Created 12 atoms
+  create_atoms CPU = 0.001 seconds
 
 dump d0 all image 1000 co2_*.jpg type type
 
@@ -149,24 +149,83 @@ mass 1 1.0
 mass 19 1.0
 mass * 0.001
 
-group           capsid type 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
-891 atoms in group capsid
+group           capsid type 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+495 atoms in group capsid
 group           capsid1 type 1
-621 atoms in group capsid1
+69 atoms in group capsid1
 group           capsid2 type 2
-0 atoms in group capsid2
+138 atoms in group capsid2
 group           capsid3 type 3
-0 atoms in group capsid3
+138 atoms in group capsid3
 group           capsidmain type 1 2 3
-621 atoms in group capsidmain
+345 atoms in group capsidmain
 group           capsidbond type 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
-270 atoms in group capsidbond
+150 atoms in group capsidbond
 group solvent type 19
-0 atoms in group solvent
+12 atoms in group solvent
 group capsidmainsolvent type 1 2 3 19
-621 atoms in group capsidmainsolvent
+357 atoms in group capsidmainsolvent
 neighbor        2.0 bin
 neigh_modify    every 1 delay 10 check yes
 velocity       	solvent create 0.1 54654
-ERROR: Cannot zero momentum of no atoms (src/velocity.cpp:760)
-Last command: velocity       	solvent create 0.1 54654
+velocity       	capsidmain create 0.1 54654
+velocity           capsidbond create 0 54654
+timestep        0.001
+
+#dump m0 capsid movie 10 movie.avi type type size 640 480
+#dump m0 capsidmain movie 10 movie.avi type type size 640 480
+dump m0 capsidmainsolvent movie 10 movie.avi type type size 640 480
+fix fix1 capsid rigid molecule
+  15 rigid bodies with 495 atoms
+fix		fix0 solvent nve
+run 50000
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7
+  ghost atom cutoff = 7
+  binsize = 3.5, bins = 6 6 6
+  2 neighbor lists, perpetual/occasional/extra = 2 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+  (2) pair table, perpetual, skip from (1)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+Per MPI rank memory allocation (min/avg/max) = 8.507 | 8.507 | 8.507 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0  0.082864797  -0.01690686            0 -0.0068552128 0.0066164349 
+   50000  0.080055425 -0.017475131            0 -0.0077642659 0.00027780625 
+Loop time of 45.7952 on 1 procs for 50000 steps with 507 atoms
+
+Performance: 94332.932 tau/day, 1091.816 timesteps/s
+68.2% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 10.68      | 10.68      | 10.68      |   0.0 | 23.32
+Bond    | 0.0059817  | 0.0059817  | 0.0059817  |   0.0 |  0.01
+Neigh   | 0.67139    | 0.67139    | 0.67139    |   0.0 |  1.47
+Comm    | 0.37952    | 0.37952    | 0.37952    |   0.0 |  0.83
+Output  | 33.045     | 33.045     | 33.045     |   0.0 | 72.16
+Modify  | 0.86997    | 0.86997    | 0.86997    |   0.0 |  1.90
+Other   |            | 0.1437     |            |       |  0.31
+
+Nlocal:        507.000 ave         507 max         507 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:        1798.00 ave        1798 max        1798 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:        40610.0 ave       40610 max       40610 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 40610
+Ave neighs/atom = 80.098619
+Ave special neighs/atom = 0.0000000
+Neighbor list builds = 1136
+Dangerous builds = 0
+Total wall time: 0:00:45
