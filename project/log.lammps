@@ -5,7 +5,6 @@ units lj
 atom_style full
 boundary p p p
 pair_style hybrid/overlay lj/cut 5.0 table linear 1000
-#pair_style lj/cut 1.12
 pair_modify mix arithmetic
 bond_style harmonic
 angle_style harmonic
@@ -17,59 +16,54 @@ region boxID1 block 0.1 10.1 0.1 10.1 0.1 20.1
 region boxID2 block 10.1 20.1 0.1 10.1 0.1 20.1
 region boxID3 block 0.1 10.1 10.1 20.1 0.1 20.1
 region boxID4 block 10.1 20.1 10.1 20.1 0.1 20.1
-create_box 17 boxID
+create_box 19 boxID
 Created orthogonal box = (0.1 0.1 0.1) to (20.100000 20.100000 20.100000)
   1 by 1 by 1 MPI processor grid
 molecule       v1mol V1.molc
 Read molecule template v1mol:
   1 molecules
-  33 atoms with max type 16
+  33 atoms with max type 18
   0 bonds with max type 0
   0 angles with max type 0
   0 dihedrals with max type 0
   0 impropers with max type 0
-create_atoms   	0 region boxID1 mol v1mol 464563 units box
+create_atoms   	0 region boxID1 mol v1mol 464563
 Created 891 atoms
   create_atoms CPU = 0.001 seconds
 molecule       v2mol V2.molc
 Read molecule template v2mol:
   1 molecules
-  33 atoms with max type 14
-  0 bonds with max type 0
-  0 angles with max type 0
-  0 dihedrals with max type 0
-  0 impropers with max type 0
-create_atoms   	0 region boxID2 mol v2mol 464563 units box
-Created 0 atoms
-  create_atoms CPU = 0.001 seconds
-molecule       v3mol V3.molc
-Read molecule template v3mol:
-  1 molecules
   33 atoms with max type 16
   0 bonds with max type 0
   0 angles with max type 0
   0 dihedrals with max type 0
   0 impropers with max type 0
-create_atoms   	0 region boxID3 mol v3mol 464563 units box
+create_atoms   	0 region boxID2 mol v2mol 464563
 Created 0 atoms
   create_atoms CPU = 0.000 seconds
-create_atoms 17 region boxID
-Created 27 atoms
+molecule       v3mol V3.molc
+Read molecule template v3mol:
+  1 molecules
+  33 atoms with max type 18
+  0 bonds with max type 0
+  0 angles with max type 0
+  0 dihedrals with max type 0
+  0 impropers with max type 0
+create_atoms   	0 region boxID3 mol v3mol 464563
+Created 0 atoms
   create_atoms CPU = 0.001 seconds
+create_atoms 19 region boxID4
+Created 0 atoms
+  create_atoms CPU = 0.000 seconds
 
 dump d0 all image 1000 co2_*.jpg type type
 
 pair_coeff 1 1 lj/cut 1.0 1.0 1.12
-pair_coeff 2 2 table ass.force ASS_FORCE 3.0
-WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
-  Should only be flagged at inflection points (src/pair_table.cpp:461)
-WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
-  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
-pair_coeff 3 3 table ass.force ASS_FORCE 3.0
-WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
-  Should only be flagged at inflection points (src/pair_table.cpp:461)
-WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
-  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 1 2 lj/cut 1.0 1.0 1.12
+pair_coeff 1 3 lj/cut 1.0 1.0 1.12
+pair_coeff 2 2 lj/cut 1.0 1.0 1.12
+pair_coeff 2 3 lj/cut 1.0 1.0 1.12
+pair_coeff 3 3 lj/cut 1.0 1.0 1.12
 pair_coeff 4 4 table ass.force ASS_FORCE 3.0
 WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
   Should only be flagged at inflection points (src/pair_table.cpp:461)
@@ -135,85 +129,44 @@ WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/d
   Should only be flagged at inflection points (src/pair_table.cpp:461)
 WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
   over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
-pair_coeff 17 17 lj/cut 1.0 1.0
-pair_coeff 1 17 lj/cut 1.0 1.0
+pair_coeff 17 17 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 18 18 table ass.force ASS_FORCE 3.0
+WARNING: 599 of 1000 force values in table ASS_FORCE are inconsistent with -dE/dr.
+  Should only be flagged at inflection points (src/pair_table.cpp:461)
+WARNING: 1000 of 1000 distance values in table 1e-06 with relative error
+  over ASS_FORCE to re-computed values (src/pair_table.cpp:469)
+pair_coeff 19 19 lj/cut 1.0 1.0
+pair_coeff 1 19 lj/cut 1.0 1.0
+pair_coeff 2 19 lj/cut 1.0 1.0
+pair_coeff 3 19 lj/cut 1.0 1.0
 pair_coeff * * lj/cut 1.0 0.0
 
 mass 1 1.0
-mass 17 1.0
+mass 19 1.0
 mass * 0.001
 
-group           capsid type 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+group           capsid type 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
 891 atoms in group capsid
-group           capsidmain type 1
+group           capsid1 type 1
+621 atoms in group capsid1
+group           capsid2 type 2
+0 atoms in group capsid2
+group           capsid3 type 3
+0 atoms in group capsid3
+group           capsidmain type 1 2 3
 621 atoms in group capsidmain
-group           capsidbond type 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+group           capsidbond type 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
 270 atoms in group capsidbond
-group solvent type 17
-27 atoms in group solvent
-group capsidmainsolvent type 1 17
-648 atoms in group capsidmainsolvent
+group solvent type 19
+0 atoms in group solvent
+group capsidmainsolvent type 1 2 3 19
+621 atoms in group capsidmainsolvent
 neighbor        2.0 bin
 neigh_modify    every 1 delay 10 check yes
 velocity       	solvent create 0.1 54654
-velocity       	capsidmain create 0.1 54654
-velocity           capsidbond create 0 54654
-timestep        0.001
-
-#dump m0 capsid movie 10 movie.avi type type size 640 480
-#dump m0 capsidmain movie 10 movie.avi type type size 640 480
-dump m0 capsidmainsolvent movie 10 movie.avi type type size 640 480
-#fix		fix0 all nve
-fix fix1 all rigid molecule
-  28 rigid bodies with 918 atoms
-run 50000
-Neighbor list info ...
-  update every 1 steps, delay 10 steps, check yes
-  max neighbors/atom: 2000, page size: 100000
-  master list distance cutoff = 7
-  ghost atom cutoff = 7
-  binsize = 3.5, bins = 6 6 6
-  2 neighbor lists, perpetual/occasional/extra = 2 0 0
-  (1) pair lj/cut, perpetual
-      attributes: half, newton on
-      pair build: half/bin/newton
-      stencil: half/bin/3d/newton
-      bin: standard
-  (2) pair table, perpetual, skip from (1)
-      attributes: half, newton on
-      pair build: skip
-      stencil: none
-      bin: none
-Per MPI rank memory allocation (min/avg/max) = 8.596 | 8.596 | 8.596 Mbytes
-Step Temp E_pair E_mol TotEng Press 
-       0  0.065680725 -0.077063644            0 -0.071160965  0.034466797 
-   50000  0.065167732  -0.07713922            0 -0.071282643 0.00028596978 
-Loop time of 89.7404 on 1 procs for 50000 steps with 918 atoms
-
-Performance: 48138.839 tau/day, 557.162 timesteps/s
-79.7% CPU use with 1 MPI tasks x 1 OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 35.32      | 35.32      | 35.32      |   0.0 | 39.36
-Bond    | 0.0059819  | 0.0059819  | 0.0059819  |   0.0 |  0.01
-Neigh   | 1.0467     | 1.0467     | 1.0467     |   0.0 |  1.17
-Comm    | 0.90105    | 0.90105    | 0.90105    |   0.0 |  1.00
-Output  | 50.363     | 50.363     | 50.363     |   0.0 | 56.12
-Modify  | 1.7712     | 1.7712     | 1.7712     |   0.0 |  1.97
-Other   |            | 0.3329     |            |       |  0.37
-
-Nlocal:        918.000 ave         918 max         918 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:        3394.00 ave        3394 max        3394 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:        88119.0 ave       88119 max       88119 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 88119
-Ave neighs/atom = 95.990196
-Ave special neighs/atom = 0.0000000
-Neighbor list builds = 478
-Dangerous builds = 0
-Total wall time: 0:01:29
+ERROR: Cannot zero momentum of no atoms (src/velocity.cpp:760)
+Last command: velocity       	solvent create 0.1 54654

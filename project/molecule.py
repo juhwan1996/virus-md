@@ -142,9 +142,9 @@ def atomwrite2(place,bondsite,partnum,fileplace):
         f.write("%d %f %f %f\n" % (i+1+len(place),bondsite[i][0],bondsite[i][1],bondsite[i][2]))
     f.write('\n\nTypes\n\n')
     for i in range(len(place)):
-        f.write("%d 1\n" % (i+1))
+        f.write("%d %d\n" % (i+1,partnum+1))
     for i in range(len(bondsite)):
-        f.write("%d %d\n" % (i+1+len(place),(1+partlink[partnum][i])))
+        f.write("%d %d\n" % (i+1+len(place),(3+partlink[partnum][i])))
     f.close()
 
 place1=atomplace(partcoord(5.0,0,1.0),autodivtable(partcoord(5.0,0,1.0),[3,3,2],1.16))
